@@ -25,8 +25,10 @@ def print_header
   end
 # and then print the student names
   def print(students)
-    students.each.with_index(1) do |student, index|
-      puts "#{index}. #{student[:name]} (#{student[:cohort]} cohort)" if student[:name].size < 12 #Filtered by character length < 12
+    count = 0
+    while count < students.count
+      puts "#{count+1}. #{students[count][:name]} (#{students[count][:cohort]} cohort)"
+      count += 1
     end
   end
 # finally print the student count
