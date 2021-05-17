@@ -26,7 +26,7 @@ def print_header
 # and then print the student names
   def print(students)
     students.each.with_index(1) do |student, index|
-      puts "#{index}. #{student[:name]} (#{student[:cohort]} cohort)"
+      puts "#{index}. #{student[:name]} (#{student[:cohort]} cohort)" if student[:name][0] == "C" #Filtered by index 0 character
     end
   end
 # finally print the student count
