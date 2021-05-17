@@ -42,7 +42,8 @@ def print_header
   def print(students)
     count = 0
     while count < students.count
-      puts "#{count+1}. #{students[count][:name]} (#{students[count][:cohort]} cohort), favourite hobby: #{students[count][:hobby]}, country of birth: #{students[count][:birth]}, height(cm): #{students[count][:height]}"
+      student_info = "#{count+1}. #{students[count][:name]} (#{students[count][:cohort]} cohort), favourite hobby: #{students[count][:hobby]}, country of birth: #{students[count][:birth]}, height(cm): #{students[count][:height]}"
+      puts student_info.center(student_info.length + 10)
       count += 1
     end
   end
