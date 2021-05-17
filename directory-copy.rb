@@ -1,36 +1,43 @@
-# lets get the names of students from user input
+# lets get the names of students & cohort from user input
 def input_students
-  puts "Please enter the names of the students"
-  puts "To finish, just hit return twice"
+  puts "Please enter the name of the first student"
+  puts "To finish, press Enter twice to end"
 # create an empty array
   students = []
-# get the student name, hobby, country of birth & height
+# get the student's name & cohort
   name = gets.chomp
-  puts "What is this students favourite hobby?"
-  hobby = gets.chomp
-  puts "What is this students country of birth?"
-  birth = gets.chomp
-  puts "What is this students height in cm?"
-  height = gets.chomp
-# while the name is not empty, repeat this code
-  while !name.empty? do
-# add the student hash to the array
-    students << {name: name, cohort: :november, hobby: hobby, birth: birth, height: height}
-    puts "Now we have #{students.count} student(s), please enter another name or press Enter to end"
-# get another name from the user
+  puts "Please enter the cohort for this student"
+  cohort = gets.chomp
+# while the name & cohort are not empty, repeat this code
+  while !name.empty? || !cohort.empty? do
+    name = "Anonymous" if name.empty?
+    cohort = "november" if cohort.empty?
+    confirm_info(name, cohort)
+    conf_n = gets.chomp
+# while the students info is wrong, repeat this code
+    while conf_n != "1"
+      name = gets.chomp
+      cohort = gets.chomp
+      name = "Anonymous" if name.empty?
+      cohort = "november" if cohort.empty?
+      confirm_info(name, cohort)
+      conf_n = gets.chomp
+    end
+# add the student hash to the array & convert cohort to a symbol
+    students << {name: name, cohort: cohort.to_sym}
+    puts "Now we have #{students.count} student(s), please enter another name or press Enter twice to end"
+# get another student info
     name = gets.chomp
-# when the name is empty, ask for other information
-    if !name.empty?
-      puts "What is this students favourite hobby?"
-      hobby = gets.chomp
-      puts "What is this students country of birth?"
-      birth = gets.chomp
-      puts "What is this students height in cm?"
-      height = gets.chomp
-    end  
+    puts "Please enter the cohort for this student"
+    cohort = gets.chomp
   end
-# return the array of students
   students
+end
+
+# confirm the user input back to the user
+def confirm_info(name, cohort)
+  puts "Name: [#{name}], Cohort: [#{cohort}]"
+  puts "Yes => 1, No => 2"
 end
 
 # start by printing the header
@@ -42,7 +49,7 @@ def print_header
   def print(students)
     count = 0
     while count < students.count
-      student_info = "#{count+1}. #{students[count][:name]} (#{students[count][:cohort]} cohort), favourite hobby: #{students[count][:hobby]}, country of birth: #{students[count][:birth]}, height(cm): #{students[count][:height]}"
+      student_info = "#{count+1}. #{students[count][:name]} (#{students[count][:cohort]} cohort)"
       puts student_info.center(student_info.length + 10)
       count += 1
     end
