@@ -45,13 +45,13 @@ def print_header
     puts "The students of Villains Academy"
     puts "-------------"
   end
-# and then print the student names
+# lets group the students by cohort and print them using .map
   def print(students)
-    count = 0
-    while count < students.count
-      student_info = "#{count+1}. #{students[count][:name]} (#{students[count][:cohort]} cohort)"
-      puts student_info.center(student_info.length + 10)
-      count += 1
+    cohort_group = students.map{|student| student[:cohort]}.uniq
+    cohort_group.each do |group|
+      puts "[The #{group} cohort]:"
+      puts students.map{|student| student[:name] if student[:cohort] == group }.compact
+      puts ""
     end
   end
 # finally print the student count
