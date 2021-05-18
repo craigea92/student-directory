@@ -23,9 +23,10 @@ def input_students
       confirm_info(name, cohort)
       conf_n = gets.chomp
     end
-# add the student hash to the array & convert cohort to a symbol
+# add the student hash to the array & convert cohort to a symbol, if students 1 > then print students
     students << {name: name, cohort: cohort.to_sym}
-    puts "Now we have #{students.count} student(s), please enter another name or press Enter twice to end"
+    students.count > 1 ? s_or_p = "students" : s_or_p = "student"
+    puts "Now we have #{students.count} #{s_or_p}, please enter another name or press Enter twice to end"
 # get another student info
     name = gets.chomp
     puts "Please enter the cohort for this student"
@@ -54,9 +55,10 @@ def print_header
       puts ""
     end
   end
-# finally print the student count
+# finally print the student(s) count
   def print_footer(names)
-    puts "Overall, we have #{names.count} great student(s)"
+    names.count > 1 ? s_or_p = "students" : s_or_p = "student"
+    puts "Overall, we have #{names.count} great #{s_or_p}"
   end
 
 # nothing happens until we call the methods
