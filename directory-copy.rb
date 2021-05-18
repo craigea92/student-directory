@@ -5,32 +5,32 @@ def input_students
 # create an empty array
   students = []
 # get the student's name & cohort
-  name = gets.rstrip
+  name = gets.chomp
   puts "Please enter the cohort for this student"
-  cohort = gets.rstrip
+  cohort = gets.chomp
 # while the name & cohort are not empty, repeat this code
   while !name.empty? || !cohort.empty? do
     name = "Anonymous" if name.empty?
     cohort = "november" if cohort.empty?
     confirm_info(name, cohort)
-    conf_n = gets.rstrip
+    conf_n = gets.chomp
 # while the students info is wrong, repeat this code
     while conf_n != "1"
-      name = gets.rstrip
-      cohort = gets.rstrip
+      name = gets.chomp
+      cohort = gets.chomp
       name = "Anonymous" if name.empty?
       cohort = "november" if cohort.empty?
       confirm_info(name, cohort)
-      conf_n = gets.rstrip
+      conf_n = gets.chomp
     end
 # add the student hash to the array & convert cohort to a symbol, if students 1 > then print students
     students << {name: name, cohort: cohort.to_sym}
     students.count > 1 ? s_or_p = "students" : s_or_p = "student"
     puts "Now we have #{students.count} #{s_or_p}, please enter another name or press Enter twice to end"
 # get another student info
-    name = gets.rstrip
+    name = gets.chomp
     puts "Please enter the cohort for this student"
-    cohort = gets.rstrip
+    cohort = gets.chomp
   end
   students
 end
@@ -41,28 +41,25 @@ def confirm_info(name, cohort)
   puts "Yes => 1, No => 2"
 end
 
-# start by printing the header
-def print_header
-    puts "The students of Villains Academy"
-    puts "-------------"
-  end
-# lets group the students by cohort and print them using .map
+# lets use an if statement to print the cohorts if the user has entered students
   def print(students)
-    cohort_group = students.map{|student| student[:cohort]}.uniq
-    cohort_group.each do |group|
-      puts "[The #{group} cohort]:"
-      puts students.map{|student| student[:name] if student[:cohort] == group }.compact
-      puts ""
+    if students.count != 0  
+      puts "The students of Villains Academy"
+      puts "-------------"
+      cohort_group = students.map{|student| student[:cohort]}.uniq
+      cohort_group.each do |group|
+        puts "[The #{group} cohort]:"
+        puts students.map{|student| student[:name] if student[:cohort] == group }.compact
+        puts ""
+      end
+# finally print the student(s) count     
+      students.count > 1 ? s_or_p = "students" : s_or_p = "student"
+      puts "Overall, we have #{students.count} great #{s_or_p}"
+    else 
+      puts "You haven't entered any student information!"
     end
-  end
-# finally print the student(s) count
-  def print_footer(names)
-    names.count > 1 ? s_or_p = "students" : s_or_p = "student"
-    puts "Overall, we have #{names.count} great #{s_or_p}"
   end
 
 # nothing happens until we call the methods
 students = input_students
-print_header
 print(students)
-print_footer(students)
