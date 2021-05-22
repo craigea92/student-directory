@@ -10,8 +10,8 @@ end
 def menu
   puts "1. Input the students"
   puts "2. Show the students"
-  puts "3. Save the list to students.csv"
-  puts "4. Load the list from students.csv"
+  puts "3. Save the list of students"
+  puts "4. Load the list of students"
   puts "9. Exit" # 9 because we'll be adding more items
 end
 
@@ -27,7 +27,8 @@ def process(selection)
     save
     feedback(action = "Save")
   when "4"
-    load
+    filename = "none"
+    load(filename)
     feedback(action = "Load")
   when "9" then exit # this will cause the program to terminate
   else
@@ -78,7 +79,9 @@ def footer
 end
 
 def save
-  file = File.open("students.csv", "w") # open the file for writing
+  puts "Please enter the filename to save:"
+  filename = STDIN.gets.chomp
+  file = File.open(filename, "w") # open the file for writing
   # iterate over the array of students
   @students.each do |student|
     student_data = [student[:name], student[:cohort]]
@@ -88,7 +91,12 @@ def save
   file.close
 end
 
-def load(filename = "students.csv")
+def load(filename)
+  if filename == "none"
+    puts "Please enter the filename to load:"
+    filename = STDIN.gets.chomp
+    @students = []
+  end
   file = File.open(filename, "r")
   file.readlines.each do |line|
   name, cohort = line.chomp.split(',')
