@@ -17,14 +17,27 @@ end
 
 def process(selection)
   case selection
-  when "1" then input
-  when "2" then show
-  when "3" then save
-  when "4" then load
+  when "1" 
+    input
+    feedback(action = "Input")
+  when "2" 
+    show
+    feedback(action = "Print")
+  when "3" 
+    save
+    feedback(action = "Save")
+  when "4"
+    load
+    feedback(action = "Load")
   when "9" then exit # this will cause the program to terminate
   else
     puts "I don't know what you meant, try again"
   end
+end
+
+def feedback(action)
+  puts "#{action} has completed successfully!"
+  puts ""
 end
 
 def input
