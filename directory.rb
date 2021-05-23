@@ -37,8 +37,7 @@ def process(selection)
 end
 
 def feedback(action)
-  puts "#{action} has completed successfully!"
-  puts ""
+  puts "\n#{action} has completed successfully!\n\n"
 end
 
 def input
@@ -81,14 +80,14 @@ end
 def save
   puts "Please enter the filename to save:"
   filename = STDIN.gets.chomp
-  file = File.open(filename, "w") # open the file for writing
+  File::open(filename, "w"){|file| # open the file for writing
   # iterate over the array of students
-  @students.each do |student|
-    student_data = [student[:name], student[:cohort]]
-    csv_line = student_data.join(",")
-    file.puts csv_line
-  end
-  file.close
+    @students.each do |student|
+      student_data = [student[:name], student[:cohort]]
+      csv_line = student_data.join(",")
+      file.puts csv_line
+    end
+  }
 end
 
 def load(filename)
@@ -97,12 +96,12 @@ def load(filename)
     filename = STDIN.gets.chomp
     @students = []
   end
-  file = File.open(filename, "r")
-  file.readlines.each do |line|
-  name, cohort = line.chomp.split(',')
-    add(name, cohort)
-  end
-  file.close
+  file = File.open(filename, "r"){|file|
+    file.readlines.each do |line|
+      name, cohort = line.chomp.split(',')
+      add(name, cohort)
+    end
+  }
 end
 
 def try_load
